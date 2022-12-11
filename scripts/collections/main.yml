@@ -1,0 +1,8 @@
+# asr/my_collection/roles/myip/tasks/main.yml
+---
+
+- name: mon debug
+  debug:
+    msg: "{{ ansible_default_ipv4.address | rrey.my_collection.split_ip }}"
+
+...
