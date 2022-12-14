@@ -1,0 +1,7 @@
+# 
+---
+
+- name: mon debug
+  debug:
+    msg: "{{ ansible_default_ipv4.address }}"
+
