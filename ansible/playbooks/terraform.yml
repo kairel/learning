@@ -1,0 +1,30 @@
+---
+- hosts: formations
+
+  tasks:
+
+    - name: Install package
+      apt:
+        pkg:
+          - ca-certificates
+          - curl
+          - lsb-release
+          - apt-transport-https
+          - software-properties-common 
+          - gnupg2
+        update_cache: yes
+      become: yes
+
+    - name: add key for debian os
+      shell: 'curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add  '
+
+    - name: add repo key for debian os
+      shell: 'apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"'
+      become: yes
+
+    - name: Install terraform
+      apt:
+        pkg:
+          - terraform
+        update_cache: yes
+      become: yes
