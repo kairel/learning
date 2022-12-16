@@ -1,0 +1,34 @@
+---
+
+- name: Install package
+  apt:
+    pkg:
+      - ca-certificates
+      - curl
+      - lsb-release
+      - apt-transport-https
+      - software-properties-common 
+      - gnupg2
+    update_cache: yes
+  become: yes
+
+- name: add key for debian os
+  shell: 'curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add '
+
+- name: add repo key for debian os
+  shell: 'add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"'
+  become: yes
+
+- name: Install docker
+  apt:
+    pkg:
+      - docker-ce
+    update_cache: yes
+  become: yes
+  
+- name: Add user to docker group
+  user:
+    name: 'assr_user'
+    groups: docker 
+    append: yes
+  become: yes

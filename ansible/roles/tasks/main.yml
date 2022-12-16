@@ -1,0 +1,5 @@
+---
+- name: include intall tasks
+  include_tasks: 
+    file: install.yml
+  when: install is defined
